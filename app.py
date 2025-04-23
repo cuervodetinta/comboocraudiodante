@@ -26,8 +26,8 @@ st.markdown("""
         }
 
         /* Títulos y subtítulos */
-        .css-1aumxhk, .css-10trblm, .stHeader, .stSubheader {
-            color: #0a3d0a !important;
+        .css-1aumxhk, .css-10trblm, .stHeader, .stSubheader, .stTitle {
+            color: black !important; /* Títulos en negro */
         }
 
         /* Botones */
@@ -54,13 +54,8 @@ st.markdown("""
         }
 
         /* Específicos para "Cargar Imagen" y "Usar Cámara" */
-        .stFileUploader>label, .stButton>button {
+        .stFileUploader>label, .stButton>button, .stCheckbox>div>label {
             color: #0a3d0a !important;  /* En verde */
-        }
-
-        /* Título en negro */
-        .stTitle {
-            color: black !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -214,6 +209,9 @@ with st.sidebar:
         st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
         if display_output_text:
+            st.markdown("## Texto de salida:")
+            st.write(output_text)
+
             st.markdown("## Texto de salida:")
             st.write(output_text)
 
