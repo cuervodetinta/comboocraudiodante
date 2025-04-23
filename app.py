@@ -9,7 +9,6 @@ from PIL import Image
 from gtts import gTTS
 from googletrans import Translator
 
-# COLORES PERSONALIZADOS
 st.markdown("""
     <style>
         body {
@@ -30,6 +29,10 @@ st.markdown("""
         .css-10trblm {  /* Subtítulos */
             color: #0a3d0a !important;
         }
+        /* Cambié el color del texto */
+        .stMarkdown, .stText, .stWrite {
+            color: #0a3d0a !important; /* Verde oscuro */
+        }
         .css-1v0mbdj button, .stButton>button {
             background-color: black;
             color: white;
@@ -40,7 +43,6 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
 
 text = " "
 
