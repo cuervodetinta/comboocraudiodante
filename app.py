@@ -13,6 +13,7 @@ st.markdown("""
     <style>
         body {
             background-color: #e6ffe6;
+            color: #0a3d0a;  /* Color verde para todo el texto */
         }
         .stApp {
             background-color: #d1f5d3;
@@ -20,26 +21,23 @@ st.markdown("""
         .stSidebar {
             background-color: black !important;
         }
-        .st-cb, .st-af, .st-ag {
-            color: white !important;
+        /* Aplicar color verde a todos los elementos de texto */
+        .st-cb, .st-af, .st-ag, .stMarkdown, .stText, .stWrite, .stRadio>div>label, .stSelectbox>div>label, .stCheckbox>div>label {
+            color: #0a3d0a !important;
         }
         .css-1aumxhk {  /* Título principal */
-            color: white !important;
+            color: #0a3d0a !important;
         }
         .css-10trblm {  /* Subtítulos */
             color: #0a3d0a !important;
         }
-        /* Cambié el color del texto */
-        .stMarkdown, .stText, .stWrite {
-            color: #0a3d0a !important; /* Verde oscuro */
-        }
-        .css-1v0mbdj button, .stButton>button {
+        .stButton>button, .css-1v0mbdj button {
             background-color: black;
             color: white;
             border: 1px solid white;
         }
         .stRadio>div>label, .stSelectbox>div>label, .stCheckbox>div>label {
-            color: white !important;
+            color: #0a3d0a !important;
         }
     </style>
 """, unsafe_allow_html=True)
