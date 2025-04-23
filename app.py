@@ -11,38 +11,45 @@ from googletrans import Translator
 
 st.markdown("""
     <style>
-        /* Cambiar color de fondo y texto */
-        body {
+        /* Cambiar fondo y color de texto a verde */
+        body, .stApp {
             background-color: #e6ffe6;
-            color: #0a3d0a;  /* Color verde para todo el texto */
+            color: #0a3d0a !important;  /* Todo el texto en verde */
         }
-        .stApp {
-            background-color: #d1f5d3;
+
+        /* Asegurar que todos los textos del contenido principal sean verdes */
+        .st-cb, .st-af, .st-ag, .stMarkdown, .stText, .stWrite, .stRadio>div>label, 
+        .stSelectbox>div>label, .stCheckbox>div>label, .stButton>button, 
+        .css-1aumxhk, .css-10trblm, .stSidebar, .stSidebar .css-1aumxhk, 
+        .stSidebar .stMarkdown, .stSidebar .stText, .stSidebar .stWrite {
+            color: #0a3d0a !important; /* Asegurar que todo el texto sea verde */
         }
-        /* Personalizar la barra lateral */
+
+        /* Títulos y subtítulos */
+        .css-1aumxhk, .css-10trblm, .stHeader, .stSubheader {
+            color: #0a3d0a !important;
+        }
+
+        /* Botones */
+        .stButton>button, .css-1v0mbdj button {
+            background-color: #0a3d0a;
+            color: white;
+            border: 1px solid white;
+        }
+
+        /* Enlaces */
+        a {
+            color: #0a3d0a !important;
+        }
+
+        /* Personalización de la barra lateral */
         .css-1d391kg {
             background-color: #d1f5d3 !important;
             color: #0a3d0a !important;
         }
-        /* Asegurar que todos los textos sean verdes */
-        .st-cb, .st-af, .st-ag, .stMarkdown, .stText, .stWrite, .stRadio>div>label, 
-        .stSelectbox>div>label, .stCheckbox>div>label, .stButton>button, .css-1aumxhk,
-        .css-10trblm, .stSidebar, .stSidebar .css-1aumxhk {
-            color: #0a3d0a !important;
-        }
-        .css-1aumxhk {  /* Título principal */
-            color: #0a3d0a !important;
-        }
-        .css-10trblm {  /* Subtítulos */
-            color: #0a3d0a !important;
-        }
-        /* Botones */
-        .stButton>button, .css-1v0mbdj button {
-            background-color: black;
-            color: white;
-            border: 1px solid white;
-        }
-        .stRadio>div>label, .stSelectbox>div>label, .stCheckbox>div>label {
+
+        /* Ajustes para las entradas de texto, checkboxes y demás campos */
+        .st-cb label, .st-radio label, .stSelectbox>div>label, .stCheckbox>div>label {
             color: #0a3d0a !important;
         }
     </style>
