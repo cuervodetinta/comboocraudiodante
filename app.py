@@ -11,6 +11,7 @@ from googletrans import Translator
 
 st.markdown("""
     <style>
+        /* Cambiar color de fondo y texto */
         body {
             background-color: #e6ffe6;
             color: #0a3d0a;  /* Color verde para todo el texto */
@@ -18,11 +19,15 @@ st.markdown("""
         .stApp {
             background-color: #d1f5d3;
         }
-        .stSidebar {
-            background-color: black !important;
+        /* Personalizar la barra lateral */
+        .css-1d391kg {
+            background-color: #d1f5d3 !important;
+            color: #0a3d0a !important;
         }
-        /* Aplicar color verde a todos los elementos de texto */
-        .st-cb, .st-af, .st-ag, .stMarkdown, .stText, .stWrite, .stRadio>div>label, .stSelectbox>div>label, .stCheckbox>div>label {
+        /* Asegurar que todos los textos sean verdes */
+        .st-cb, .st-af, .st-ag, .stMarkdown, .stText, .stWrite, .stRadio>div>label, 
+        .stSelectbox>div>label, .stCheckbox>div>label, .stButton>button, .css-1aumxhk,
+        .css-10trblm, .stSidebar, .stSidebar .css-1aumxhk {
             color: #0a3d0a !important;
         }
         .css-1aumxhk {  /* Título principal */
@@ -31,6 +36,7 @@ st.markdown("""
         .css-10trblm {  /* Subtítulos */
             color: #0a3d0a !important;
         }
+        /* Botones */
         .stButton>button, .css-1v0mbdj button {
             background-color: black;
             color: white;
