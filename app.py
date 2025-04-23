@@ -57,6 +57,11 @@ st.markdown("""
         .stFileUploader>label, .stButton>button, .stCheckbox>div>label {
             color: #0a3d0a !important;  /* En verde */
         }
+
+        /* Asegurarse de que el texto junto al checkbox de "Usar cámara" y "Cargar imagen" también esté en verde */
+        .stCheckbox>div>label, .stFileUploader>label {
+            color: #0a3d0a !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -211,7 +216,3 @@ with st.sidebar:
         if display_output_text:
             st.markdown("## Texto de salida:")
             st.write(output_text)
-
-            st.markdown("## Texto de salida:")
-            st.write(output_text)
-
