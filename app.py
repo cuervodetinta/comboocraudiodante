@@ -2,13 +2,45 @@ import streamlit as st
 import os
 import time
 import glob
-import os
 import cv2
 import numpy as np
 import pytesseract
 from PIL import Image
 from gtts import gTTS
 from googletrans import Translator
+
+# COLORES PERSONALIZADOS
+st.markdown("""
+    <style>
+        body {
+            background-color: #e6ffe6;
+        }
+        .stApp {
+            background-color: #d1f5d3;
+        }
+        .stSidebar {
+            background-color: black !important;
+        }
+        .st-cb, .st-af, .st-ag {
+            color: white !important;
+        }
+        .css-1aumxhk {  /* Título principal */
+            color: white !important;
+        }
+        .css-10trblm {  /* Subtítulos */
+            color: #0a3d0a !important;
+        }
+        .css-1v0mbdj button, .stButton>button {
+            background-color: black;
+            color: white;
+            border: 1px solid white;
+        }
+        .stRadio>div>label, .stSelectbox>div>label, .stCheckbox>div>label {
+            color: white !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 
 text = " "
 
@@ -23,7 +55,6 @@ def text_to_speech(input_language, output_language, text, tld):
     tts.save(f"temp/{my_file_name}.mp3")
     return my_file_name, trans_text
 
-
 def remove_files(n):
     mp3_files = glob.glob("temp/*mp3")
     if len(mp3_files) != 0:
@@ -32,31 +63,11 @@ def remove_files(n):
         for f in mp3_files:
             if os.stat(f).st_mtime < now - n_days:
                 os.remove(f)
-                print("Deleted ", f)
-
 
 remove_files(7)
 
-# Cambié el color del texto aquí
-st.markdown(
-    """
-    <style>
-    .title {
-        color: #155724; /* verde oscuro */
-    }
-    .subtitle {
-        color: #155724; /* verde oscuro */
-    }
-    .text-output {
-        color: #155724; /* verde oscuro */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-st.title("Reconocimiento Óptico de Caracteres", help="Texto reconocido de imágenes")
-st.subheader("Elige la fuente de la imágen, esta puede venir de la cámara o cargando un archivo")
+st.title("Reconocimiento Óptico de Caracteres")
+st.subheader("Elige la fuente de la imagen, esta puede venir de la cámara o cargando un archivo")
 
 cam_ = st.checkbox("Usar Cámara")
 
@@ -72,42 +83,39 @@ with st.sidebar:
 bg_image = st.file_uploader("Cargar Imagen:", type=["png", "jpg"])
 if bg_image is not None:
     uploaded_file = bg_image
-    st.image(uploaded_file, caption='Imagen cargada.', use_column_width=True)
-    
-    # Guardar la imagen en el sistema de archivos
+    st.image(uploaded_file, caption='Imagen cargada.', use_container_width=True)
+
     with open(uploaded_file.name, 'wb') as f:
         f.write(uploaded_file.read())
-    
+
     st.success(f"Imagen guardada como {uploaded_file.name}")
     img_cv = cv2.imread(f'{uploaded_file.name}')
     img_rgb = cv2.cvtColor(img_cv, cv2.COLOR_BGR2RGB)
     text = pytesseract.image_to_string(img_rgb)
-    st.markdown(f"<p class='text-output'>{text}</p>", unsafe_allow_html=True)
+
+st.write(text)
 
 if img_file_buffer is not None:
-    # To read image file buffer with OpenCV:
     bytes_data = img_file_buffer.getvalue()
     cv2_img = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
 
     if filtro == 'Con Filtro':
         cv2_img = cv2.bitwise_not(cv2_img)
-    else:
-        cv2_img = cv2_img
 
     img_rgb = cv2.cvtColor(cv2_img, cv2.COLOR_BGR2RGB)
-    text = pytesseract.image_to_string(img_rgb) 
-    st.markdown(f"<p class='text-output'>{text}</p>", unsafe_allow_html=True)
+    text = pytesseract.image_to_string(img_rgb)
+    st.write(text)
 
 with st.sidebar:
     st.subheader("Parámetros de traducción")
-    
+
     try:
         os.mkdir("temp")
     except:
         pass
-    #st.title("Text to speech")
+
     translator = Translator()
-    
+
     in_lang = st.selectbox(
         "Seleccione el lenguaje de entrada",
         ("Ingles", "Español", "Bengali", "koreano", "Mandarin", "Japones"),
@@ -124,9 +132,9 @@ with st.sidebar:
         input_language = "zh-cn"
     elif in_lang == "Japones":
         input_language = "ja"
-    
+
     out_lang = st.selectbox(
-        "Select your output language",
+        "Seleccione el lenguaje de salida",
         ("Ingles", "Español", "Bengali", "koreano", "Mandarin", "Japones"),
     )
     if out_lang == "Ingles":
@@ -137,11 +145,11 @@ with st.sidebar:
         output_language = "bn"
     elif out_lang == "koreano":
         output_language = "ko"
-    elif out_lang == "Chinese":
+    elif out_lang == "Mandarin":
         output_language = "zh-cn"
     elif out_lang == "Japones":
         output_language = "ja"
-    
+
     english_accent = st.selectbox(
         "Seleccione el acento",
         (
@@ -155,12 +163,11 @@ with st.sidebar:
             "South Africa",
         ),
     )
-    
+
     if english_accent == "Default":
         tld = "com"
     elif english_accent == "India":
         tld = "co.in"
-    
     elif english_accent == "United Kingdom":
         tld = "co.uk"
     elif english_accent == "United States":
@@ -180,9 +187,9 @@ with st.sidebar:
         result, output_text = text_to_speech(input_language, output_language, text, tld)
         audio_file = open(f"temp/{result}.mp3", "rb")
         audio_bytes = audio_file.read()
-        st.markdown(f"## Tu audio:")
+        st.markdown("## Tu audio:")
         st.audio(audio_bytes, format="audio/mp3", start_time=0)
-        
+
         if display_output_text:
-            st.markdown(f"## Texto de salida:")
-            st.markdown(f"<p class='text-output'>{output_text}</p>", unsafe_allow_html=True)
+            st.markdown("## Texto de salida:")
+            st.write(output_text)
