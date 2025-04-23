@@ -52,6 +52,16 @@ st.markdown("""
         .st-cb label, .st-radio label, .stSelectbox>div>label, .stCheckbox>div>label {
             color: #0a3d0a !important;
         }
+
+        /* Específicos para "Cargar Imagen" y "Usar Cámara" */
+        .stFileUploader>label, .stButton>button {
+            color: #0a3d0a !important;  /* En verde */
+        }
+
+        /* Título en negro */
+        .stTitle {
+            color: black !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -206,3 +216,4 @@ with st.sidebar:
         if display_output_text:
             st.markdown("## Texto de salida:")
             st.write(output_text)
+
